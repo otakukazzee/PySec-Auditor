@@ -108,7 +108,19 @@ def check_allowed_methods(url: str) -> dict:
 
 def check_exposure(base_url: str) -> dict:
     results = {"exposed_paths": [], "protected_paths": [], "not_found": []}
-    sensitive_paths = [".git/config", ".env", "robots.txt", "sitemap.xml", "admin/", "README.md"]
+    # sensitive_paths = [".git/config", ".env", "robots.txt", "sitemap.xml", "admin/", "README.md"]
+    default_paths = [".git/config", ".env", "robots.txt", "sitemap.xml", "admin/", "README.md"]
+    sensitive_paths = []
+    try:
+        with open(r'wordlist\file_exposure.txt', 'r', encoding='utf-8') as f:
+            for line in f:
+                path = line.strip()
+                if path and not path.startswith('#'):
+                    sensitive_paths.append(path)
+    except FileNotFoundError:
+        print(f"[!] File wordlist {r'wordlist\file_exposure.txt'} tidak ditemukan.")
+        sensitive_paths = default_paths
+
     for path in sensitive_paths:
         target_url = urllib.parse.urljoin(base_url, path)
         try:

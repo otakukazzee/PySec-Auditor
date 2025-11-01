@@ -4,7 +4,12 @@
 - Python 3.9+
 - pip
 
-## Instal dependensi
+## Install dependensi ke-1 (Direkomendasikan)
+```bash
+python install.py
+```
+
+## Instal dependensi ke-2
 ```bash
 pip install -r requirements.txt
 ```
@@ -19,5 +24,6 @@ rich
 
 ## Menjalankan
 ```bash
-python run.py -u example.com -o report.json
+python run.py -u example.com -o report.json -ld id
+python run.py -u example.com -o report.html -ld en
 ```

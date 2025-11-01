@@ -1,6 +1,8 @@
 requests
+httpx
 beautifulsoup4
 pyfiglet
 rich
-
 pytest
+python-whois
+dnspython

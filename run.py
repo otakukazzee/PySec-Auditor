@@ -9,6 +9,17 @@ from src.scanner import (check_allowed_methods, analyze_cookies, check_specific_
 from src.path_traversal import check_path_traversal_query
 from src import __version__ as VERSION
 from src.output import export_results, check_specific_security_headers_rich_output, analyze_cookies_rich_output
+from src.network_tools import (
+    get_ip_address,
+    get_dns_records,
+    reverse_dns,
+    whois_lookup,
+    port_scan_parallel as port_scan,
+    banner_grab_parallel as banner_grab,
+    enumerate_subdomains_parallel as enumerate_subdomains,
+    get_cert_sans
+)
+
 from rich.console import Console
 from rich.panel import Panel
 console = Console()
@@ -53,7 +64,12 @@ def main():
     parser.add_argument('-t', '--timeout', type=int, default=15, help='Timeout koneksi dalam detik (default: 15)')
     parser.add_argument('-l', '--lang', type=str, default='id', choices=['id', 'en'], help='Pilih bahasa antarmuka (id: Indonesia, en: English). Default: id')
     parser.add_argument('-h', '--help', action='store_true', help='Tampilkan pesan bantuan ini dan keluar')
+    parser.add_argument('-d', '--domain', type=str, help='Nama domain atau host yang akan diaudit', required=True)
+    parser.add_argument('-p', '--ports', nargs='+', type=int, default=[21,22,23,25,53,80,110,143,443,445,3306,3389,8080,8443], help='Daftar port untuk port scan')
+    parser.add_argument('-s', '--subdomains', type=str, default=None, help='Jalur wordlist subdomain')
+
     args = parser.parse_args()
+
     set_language(args.lang)
     clear_screen()
     display_ascii_art()
@@ -63,7 +79,55 @@ def main():
     if not args.url:
         console.print(Panel(get_msg("error_url_missing"), border_style="red"))
         sys.exit(1)
-    check_http_security(args.url, args.timeout, args.output)
+    
+    audit_results = {}
+    
+    if args.url:
+        check_http_security(args.url, args.timeout, args.output)
+
+    # check_http_security(args.url, args.timeout, args.output)
+
+    hostname = args.domain
+    console.print(Panel(f"[bold yellow]Starting Network Audit[/bold yellow] for: [bold blue]{hostname}[/bold blue]", border_style="magenta"))
+
+    audit_results['IP_Address'] = get_ip_address(hostname)
+    console.print(f"[bold cyan]IP Address:[/bold cyan] {audit_results['IP_Address']}")
+
+    audit_results['DNS_Records'] = get_dns_records(hostname)
+    console.print(f"[bold cyan]DNS Records:[/bold cyan] {audit_results['DNS_Records']}")
+
+    if 'ip_address' in audit_results['IP_Address']:
+        ip = audit_results['IP_Address']['ip_address']
+        audit_results['Reverse_DNS'] = reverse_dns(ip)
+        console.print(f"[bold cyan]Reverse DNS:[/bold cyan] {audit_results['Reverse_DNS']}")
+
+    audit_results['WHOIS'] = whois_lookup(hostname)
+    console.print(f"[bold cyan]WHOIS:[/bold cyan] {audit_results['WHOIS']}")
+
+    audit_results['Open_Ports'] = port_scan(hostname, ports=args.ports, timeout=args.timeout)
+    console.print(f"[bold cyan]Open Ports:[/bold cyan] {audit_results['Open_Ports']}")
+
+    # Banner grab paralel
+    banners = banner_grab(hostname, args.ports)
+    audit_results['Banners'] = {b['port']: b['banner'] for b in banners if b.get('banner')}
+    console.print(f"[bold cyan]Service Banners:[/bold cyan] {audit_results['Banners']}")
+
+    # Subdomain enumeration paralel
+    if args.subdomains:
+        audit_results['Subdomains'] = enumerate_subdomains(hostname, args.subdomains)
+        console.print(f"[bold cyan]Found Subdomains:[/bold cyan] {audit_results['Subdomains']}")
+
+    audit_results['Cert_SANs'] = get_cert_sans(hostname)
+    console.print(f"[bold cyan]Certificate SANs:[/bold cyan] {audit_results['Cert_SANs']}")
+
+    if args.output:
+        try:
+            import json
+            with open(args.output, 'w', encoding='utf-8') as f:
+                json.dump(audit_results, f, indent=4)
+            console.print(Panel(f"Hasil audit berhasil disimpan di [bold green]{args.output}[/bold green]", border_style="green"))
+        except Exception as e:
+            console.print(Panel(f"Gagal menyimpan hasil audit: {e}", border_style="red"))
 
 if __name__ == "__main__":
     main()
