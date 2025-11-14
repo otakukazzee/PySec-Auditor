@@ -1,0 +1,7 @@
+{
+  "salt": "n7MvR/x2ddIZNrjR1ju0BA==",
+  "nonce": "9QSxUB6U+nYaBlw8XG2MGA==",
+  "tag": "5QHblftWWSQR6RrmxJv6tA==",
+  "ciphertext": "1iwfqD0bPe1HbZ1mnUbIGoG5KBNnJI5hyntO9V5gAyEVAx7EjPRI+flMKNYmJ9FXAOUK++MA+pg4RWrM4MhPjz+3GI14q41xEo+xTG7i3pCNwWK8hZI2gnrsI2FkU8E9NLNSCXovddxtFfI2mKSpxc+giOcGX92QhnCo72R3Db4NFLHwZg==",
+  "kdf_iter": 200000
+}
