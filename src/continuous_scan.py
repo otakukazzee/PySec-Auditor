@@ -4,7 +4,7 @@ from .premium_features import run_premium_scan
 from .free_features import run_free_scan
 from .reporter import generate_reports
 def run_daemon(url, interval, key=None, output_prefix='continuous'):
-    print(f\"Starting continuous scans for {url} every {interval}s (CTRL+C to stop)\")
+    print(f"Starting continuous scans for {url} every {interval}s (CTRL+C to stop)")
     try:
         while True:
             ok=False

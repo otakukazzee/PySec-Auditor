@@ -11,8 +11,8 @@ def format_html_report(result: dict, title='Report'):
 def save_reports(result: dict, output_prefix='report'):
     ensure = os.path.exists('reports') or os.makedirs('reports', exist_ok=True)
     ts = datetime.datetime.utcnow().strftime('%Y%m%d_%H%M%SZ')
-    j = os.path.join('reports', f\"{output_prefix}_{ts}.json\"); 
+    j = os.path.join('reports', f"{output_prefix}_{ts}.json"); 
     with open(j,'w',encoding='utf-8') as f: json.dump(result, f, indent=2, default=str)
     html = format_html_report(result, title=output_prefix)
-    h = os.path.join('reports', f\"{output_prefix}_{ts}.html\"); open(h,'w',encoding='utf-8').write(html)
+    h = os.path.join('reports', f"{output_prefix}_{ts}.html"); open(h,'w',encoding='utf-8').write(html)
     return {'json': j, 'html': h}
