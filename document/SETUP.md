@@ -26,7 +26,7 @@ pip install -r requirements.txt
 
 # ⚙️ 2. Installation
 ```bash
-git clone https://github.com/your-repo/PySec-Auditor
+git clone https://github.com/otakukazzee/PySec-Auditor.git
 cd PySec-Auditor
 pip install -r requirements.txt
 ```
