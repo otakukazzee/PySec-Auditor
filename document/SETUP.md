@@ -1,100 +1,141 @@
-# PySec Auditor — Setup Guide
-A professional setup guide for installing, configuring, and running PySec Auditor.
+# ⚙️ **PYSEC Auditor – Setup, Installation & Configuration Guide**
+
+Panduan lengkap instalasi dan konfigurasi PYSEC Auditor untuk memastikan performa optimal dan keamanan maksimal.
 
 ---
 
-# 🧰 1. Requirements
-### System Requirements
-- Python 3.9+
-- Linux / Termux / Windows / macOS
-- Internet connection (for API modules)
+# 🧰 **1. System Requirements**
 
-### Python Dependencies
-- rich
-- pyfiglet
-- requests
-- beautifulsoup4
-- aiohttp
-- colorama
+### 📌 Software:
+- Python 3.9 atau lebih tinggi
+- pip / venv
+- Internet (untuk OSINT API)
 
-Install with:
-```bash
+### 📌 Python Dependencies:
+```
 pip install -r requirements.txt
 ```
 
 ---
 
-# ⚙️ 2. Installation
+# 📦 **2. Installation**
+
 ```bash
-git clone https://github.com/otakukazzee/PySec-Auditor.git
+git clone https://github.com/yourrepo/PySec-Auditor
 cd PySec-Auditor
 pip install -r requirements.txt
 ```
 
 ---
 
-# ▶️ 3. Running the Application
-Basic usage:
-```bash
-python3 run.py
+# 🔑 **3. API Key Configuration**
+
+API key diperlukan untuk modul OSINT.  
+Tersimpan dalam:
+
+```
+config/keys.json
 ```
 
-Display help:
+### Contoh:
+```json
+{
+  "shodan": "YOUR_SHODAN_KEY",
+  "virustotal": "YOUR_VIRUSTOTAL_KEY",
+  "hunter": "YOUR_HUNTER_KEY"
+}
+```
+
+Jika tidak diisi → modul OSINT akan dinonaktifkan otomatis.
+
+---
+
+# 🔐 **4. Admin Mode Setup**
+
+Admin key digunakan untuk fitur premium dan analisis lanjutan.
+
+Lokasi:
+```
+config/admin.json
+```
+
+### Contoh:
+```json
+{
+  "admin_key": "ADMIN12345"
+}
+```
+
+### Cara memakai:
+```bash
+python3 run.py --admin --key ADMIN12345
+```
+
+---
+
+# ▶️ **5. Basic Usage**
+
+### Help menu:
 ```bash
 python3 run.py --help
 ```
 
-Run scanner:
+### OSINT:
+```bash
+python3 run.py --osint domain.com
+```
+
+### Vulnerability scan:
 ```bash
 python3 run.py --scan target.com
 ```
 
+### Full analysis:
+```bash
+python3 run.py --fullscan target.com
+```
+
 ---
 
-# 🌐 4. Language Configuration
-Modify `src/language.py` to customize:
-- English (en)
-- Indonesian (in)
-- Spanish (es)
-- Arabic (ar)
-- And more…
+# 🌍 **6. Language Configuration**
 
-Enable language:
+Ubah bahasa:
 ```bash
 python3 run.py --lang en
 ```
 
----
-
-# 📄 5. HTML Report Setup
-Reports are generated with:
-- Responsive layout
-- Modern design
-- CSS‑based severity highlighting
-
-Output example:
-```bash
-python3 run.py --export report.html
+File bahasa:
+```
+src/language.py
 ```
 
 ---
 
-# 🧩 6. Developer Notes
-To add a new module:
-1. Create a folder under `src/yourmodule`.
-2. Add a Python class with `run()` method.
-3. Import it inside `run.py`.
+# 📊 **7. HTML Report Generator**
+
+### Generate laporan:
+```bash
+python3 run.py --export report.html
+```
+
+Fitur:
+- Responsive
+- Estetika modern
+- Severity coloring
+- Siap diprint ke PDF
 
 ---
 
-# 🛠️ 7. Troubleshooting
-| Issue | Fix |
-|-------|------|
-| Missing dependencies | Re‑run `pip install -r requirements.txt` |
-| Termux permission error | Run `termux-setup-storage` |
-| Encoding issues | Use UTF‑8 environment |
+# 🛠️ **8. Troubleshooting**
+
+| Masalah | Penyebab | Solusi |
+|--------|----------|--------|
+| API tidak berfungsi | Key kosong / invalid | Cek `keys.json` |
+| Admin gagal | Key salah | Cek `admin.json` |
+| Module error | Dependency kurang | Jalankan reinstall |
+| Permission Termux | storage belum diizinkan | `termux-setup-storage` |
 
 ---
 
-# ✔️ Installation Complete
-You're ready to run PySec Auditor professionally!
+# 🎉 **Setup Complete**
+PYSEC siap digunakan untuk kebutuhan analisis keamanan profesional Anda.

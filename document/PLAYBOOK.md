@@ -1,82 +1,130 @@
-# PySec Auditor Playbook
-## 📌 Objective
-This playbook provides a standardized, professional, and repeatable methodology for conducting audits using PySec Auditor. Designed for SOC teams, penetration testers, and automated pipelines.
+# 📘 **PYSEC Auditor – Enterprise Playbook**
+### Panduan Operasional Profesional untuk Keamanan Perusahaan
+
+Playbook ini dibuat untuk memberikan alur kerja operasional yang standar, konsisten, dan optimal saat menggunakan PYSEC Auditor dalam lingkungan produksi atau enterprise.
 
 ---
 
-# 🔍 1. Reconnaissance Workflow
-### Tools Used
-- `src/scanner/`
-- OSINT modules
-- API integrations
+# 🧩 **1. Preparation & Environment Setup**
 
-### Steps
-1. Identify the target scope.
-2. Run passive reconnaissance.
-3. Collect subdomains.
-4. Perform active scanning.
-5. Export structured findings.
+## ✔ Checklist Awal:
+- `config/keys.json` sudah terisi API key valid.
+- `config/admin.json` berisi admin key untuk fitur premium.
+- Install Python dependencies.
+- Akses jaringan stabil untuk OSINT.
 
-### Recommended Commands
-```bash
-python3 run.py --osint domain.com
-python3 run.py --subscan domain.com
+### Contoh `keys.json`
+```json
+{
+  "shodan": "YOUR_SHODAN_KEY",
+  "virustotal": "YOUR_VT_KEY",
+  "hunter": "YOUR_HUNTER_KEY"
+}
+```
+
+### Contoh `admin.json`
+```json
+{
+  "admin_key": "ADMIN12345"
+}
 ```
 
 ---
 
-# 🛡️ 2. Vulnerability Analysis
-### Modules
-- Port scanning
+# 🔍 **2. Reconnaissance / OSINT Phase**
+
+## 🎯 Tujuan:
+- Mengumpulkan informasi tanpa interaksi agresif.
+- Identifikasi permukaan serangan awal.
+
+### Perintah:
+```bash
+python3 run.py --osint example.com
+python3 run.py --subscan example.com
+python3 run.py --dnsmap example.com
+```
+
+### Output:
+- Subdomain list
+- DNS mapping
+- Metadata exposures
+- Potensi risiko awal
+
+---
+
+# 🛡️ **3. Vulnerability Analysis Phase**
+
+### 🔧 Modul yang Digunakan:
+- Port scanner
 - Service enumeration
-- CVE detection
+- Banner grabber
+- CVE correlation engine
+
+### Perintah:
+```bash
+python3 run.py --scan example.com
+python3 run.py --fullscan example.com
+```
+
+### Output:
 - Risk scoring
-
-### Steps
-1. Run port scan on key assets.
-2. Match banners to known CVEs.
-3. Assign severity based on CVSS.
-4. Export results to HTML report.
+- Severity mapping
+- CVE listing + rekomendasi
+- Threat exposure summary
 
 ---
 
-# 🧪 3. Exploitation Phase
-### Notes
-PySec does not include harmful exploitation modules.  
-Instead, it provides:
-- Exploit verification
-- Reporting assistance
-- Mitigation guidance
+# 🧪 **4. Validation Phase (Admin Mode)**
+
+### Penting:
+Hanya user dengan admin key dapat mengakses fase ini.
+
+### Perintah:
+```bash
+python3 run.py --admin --key ADMIN12345 --verify example.com
+```
+
+Fitur admin:
+- Detailed exploit verification (non-destructive)
+- Deep packet-based analysis
+- Extended CVE justification
+- Internal analyzer logging
 
 ---
 
-# 🧾 4. Reporting & Documentation
-### HTML Report Highlights
-- Modern interface
-- Responsive layout
-- Severity colors
-- Exportable PDF via browser print
+# 🧾 **5. Reporting Phase**
 
-### Command
+### Generate laporan:
 ```bash
 python3 run.py --export report.html
 ```
 
+Report mencakup:
+- Executive summary
+- Risk heatmap
+- Detailed technical notes
+- Severity highlights
+- Timeline aktivitas scanning
+
 ---
 
-# 🧩 5. Automation & CI/CD Integration
-Integrate PySec into:
-- GitHub Actions
-- Jenkins
-- GitLab CI
-- Cron jobs
+# 🤖 **6. CI/CD Automation**
 
-### Example
+Cocok untuk:
+- GitHub Actions
+- GitLab CI
+- Jenkins
+- Cron-based monitoring
+
+### Contoh automation:
 ```bash
-python3 run.py --scan domain.com --export output/report.html
+python3 run.py --scan target.com --export logs/report_$(date +%F).html
 ```
 
 ---
 
-# 📘 Additional Notes
-Use standardized workflow templates for consistency across audits.
+# 📌 **Best Practices**
+- Lakukan OSINT sebelum active scanning.
+- Simpan API key di environment variable bila mungkin.
+- Gunakan admin mode hanya untuk analisis lanjutan.
+- Simpan hasil scan terarsip dengan aman.
