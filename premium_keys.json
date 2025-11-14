@@ -1,0 +1,8 @@
+{
+  "keys": {
+    "PREM-TEST-123": {
+      "plan": "pro",
+      "owner": "you@example.com"
+    }
+  }
+}

@@ -1,89 +1,48 @@
-# ⚡ PySec Auditor — Web Security Toolkit 🔐
+# PySec Auditor
+## Modern & Professional Security Auditing Toolkit
 
-> **"Automate. Detect. Defend."**  
-> *A modular Python toolkit for auditing HTTP headers, cookies, TLS, and web misconfigurations.*
+PySec Auditor is a modular, multilingual, and automation‑ready security assessment toolkit designed for penetration testers, security engineers, red‑team members, and developers who need a clean, powerful, and extensible command‑line workflow.
 
----
+### ✨ Key Features
+- **Modular Architecture:** All features live inside `/src` for clean development and maintenance.
+- **Modern CLI UX:** Built using `rich`, `pyfiglet`, and enhanced colorized outputs.
+- **Automation Ready:** Supports API integrations, logging, reporting, and advanced analytics.
+- **Multilingual Support:** English, Indonesian, Spanish, Arabic, and more via `language.py`.
+- **HTML Reporting:** Clean, responsive, modern UI for exported audit reports.
+- **Extensible:** Add new modules with minimal boilerplate using the built‑in module handler.
 
-## 🧠 Tentang Proyek  
-**PySec Auditor** adalah toolkit keamanan yang dirancang untuk membantu *defender*, *pentester*, dan *developer security-minded* dalam melakukan **audit keamanan web**.  
-Dibangun dengan Python dan **Rich UI**, alat ini menampilkan hasil audit secara interaktif dan dapat diekspor ke berbagai format laporan.
-
-> 💡 Project ini bersifat **open-source**, berlisensi **MIT**, dan dikembangkan oleh **Sardidev ❤️**
-
----
-
-## 🚀 Fitur Utama  
-| Kategori | Fitur |
-|-----------|--------|
-| 🔐 **Header Security Audit** | Pemeriksaan otomatis terhadap header penting seperti **HSTS**, **CSP**, **X-Frame-Options**, **X-Content-Type-Options**, dan lainnya |
-| 🍪 **Cookie Analyzer** | Analisis atribut **Secure**, **HttpOnly**, dan **SameSite** untuk setiap cookie |
-| 🌍 **CORS & Exposure Check** | Deteksi konfigurasi CORS yang lemah dan file sensitif seperti `.git`, `.env`, `robots.txt`, `backup.zip` |
-| 🧩 **Path Traversal Test** | Pengujian parameter query terhadap potensi eksploitasi direktori traversal |
-| 🔒 **TLS & Cipher Suite Audit** | Pemeriksaan sertifikat SSL/TLS, masa berlaku, dan cipher yang digunakan |
-| 📦 **Output & Reporting** | Ekspor hasil audit ke **JSON** atau **HTML report** dengan tampilan profesional |
-
----
-
-## ⚙️ Cara Menjalankan  
-1. **Instal dependensi:**
-   ```bash
-   pip install -r document/setup.md
-   ```
-2. **Jalankan audit:**
-   ```bash
-   python run.py -u https://example.com -o report.json -l id
-   ```
-
-3. **Output:**  
-   - `JSON` → hasil mentah untuk integrasi CI/CD  
-   - `HTML` → laporan interaktif dengan visualisasi keamanan  
-
----
-
-## 🧭 Struktur Proyek  
+### 📁 Project Structure
 ```
-PySec_Auditor/
-├── run.py                  # Entry point utama
-├── src/                    # Folder berisi semua modul audit
-│   ├── core/               # Logika inti (header, cookie, TLS, traversal)
-│   ├── utils/              # Fungsi pendukung & formatter
-│   └── output/             # Ekspor laporan & tampilan Rich
-└── document/               # Dokumentasi & panduan penggunaan
-    ├── README.md
-    ├── setup.md
-    └── playbook.md
+PySec-Auditor/
+│── run.py
+│── src/
+│   ├── scanner/
+│   ├── utils/
+│   ├── reports/
+│   ├── language.py
+│   └── ...
+│── docs/
+│── README.md
+│── SETUP.md
+│── PLAYBOOK.md
 ```
 
----
-
-## 🧩 Integrasi & CI/CD  
-- 💥 Dapat digunakan dalam pipeline keamanan DevSecOps  
-- ⚙️ Dukungan **pytest** untuk pengujian otomatis  
-- 🔁 Cocok dikombinasikan dengan **Burp**, **ZAP**, atau **Nikto**  
-
-[![pytest](https://img.shields.io/badge/test-pytest-brightgreen?logo=python&logoColor=white)](https://docs.pytest.org/)
-[![license](https://img.shields.io/badge/license-MIT-blue)](LICENSE)
-[![Python](https://img.shields.io/badge/python-3.10%2B-yellow?logo=python)]()
-[![security](https://img.shields.io/badge/security-checked-success)]()
+### 📘 Documentation
+- **Setup Guide:** `SETUP.md`
+- **Playbook / Workflow Guide:** `PLAYBOOK.md`
+- **Developer Notes:** `/docs/`
 
 ---
 
-## 🧱 Rekomendasi Penggunaan  
-> ⚠️ **Gunakan hanya untuk aset yang Anda miliki atau memiliki izin eksplisit untuk diuji.**
+## 🚀 Quick Start
+```bash
+python3 run.py --help
+python3 run.py --scan target.com
+python3 run.py --export report.html
+```
 
-- 🧪 Ideal untuk pembelajaran dan simulasi audit keamanan web  
-- 🛡️ Gunakan di lingkungan yang terkontrol (*lab / staging*)  
-- 🔧 Tambahkan logging, retry, dan konfigurasi lanjutan untuk produksi  
-- 🔍 Integrasikan dengan sistem keamanan Anda untuk *continuous monitoring*  
+## 🧩 Contributing
+Contributions are welcome. Follow style guidelines and ensure code formatting using `black`.
 
----
-
-## 📜 Lisensi  
-Lisensi: **MIT License**  
-Developed with ❤️ by **Sardidev**
-
----
-
-## 🌐 Quotes for Hackers  
-> “The quieter you become, the more you are able to hear — and the safer your system becomes.”  
+## 📄 License
+MIT License.
